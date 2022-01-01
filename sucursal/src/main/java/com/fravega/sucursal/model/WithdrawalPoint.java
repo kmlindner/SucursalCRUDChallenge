@@ -3,7 +3,7 @@ package com.fravega.sucursal.model;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
-@Entity
+@Entity(name = "WithdrawalPoint")
 @DiscriminatorValue(value = "WITHDRAWAL_POINT")
 public class WithdrawalPoint extends Node {
 
@@ -23,6 +23,13 @@ public class WithdrawalPoint extends Node {
 
     public void setCapacity(long capacity) {
         this.capacity = capacity;
+    }
+
+    @Override
+    public String toString() {
+        return "WithdrawalPoint{" +
+                "capacity=" + capacity +
+                "} " + super.toString();
     }
 
 }

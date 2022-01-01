@@ -2,7 +2,7 @@ package com.fravega.sucursal.model;
 
 import javax.persistence.*;
 
-@Entity
+@Entity(name = "Node")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "NODE_TYPE", discriminatorType = DiscriminatorType.STRING)
 public abstract class Node {
@@ -43,6 +43,15 @@ public abstract class Node {
 
     public void setLongitude(double longitude) {
         this.longitude = longitude;
+    }
+
+    @Override
+    public String toString() {
+        return "Node{" +
+                "id=" + id +
+                ", latitude=" + latitude +
+                ", longitude=" + longitude +
+                '}';
     }
 
 }

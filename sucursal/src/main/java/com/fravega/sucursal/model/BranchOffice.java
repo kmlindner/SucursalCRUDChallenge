@@ -3,7 +3,7 @@ package com.fravega.sucursal.model;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
-@Entity
+@Entity(name = "BranchOffice")
 @DiscriminatorValue(value = "BRANCH_OFFICE")
 public class BranchOffice extends Node {
 
@@ -33,6 +33,14 @@ public class BranchOffice extends Node {
 
     public void setBusinessHours(String businessHours) {
         this.businessHours = businessHours;
+    }
+
+    @Override
+    public String toString() {
+        return "BranchOffice{" +
+                "address='" + address + '\'' +
+                ", businessHours='" + businessHours + '\'' +
+                "} " + super.toString();
     }
 
 }
