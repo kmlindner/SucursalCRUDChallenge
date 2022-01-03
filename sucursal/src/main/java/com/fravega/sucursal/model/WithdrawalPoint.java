@@ -27,9 +27,10 @@ public class WithdrawalPoint extends Node {
 
     @Override
     public String toString() {
-        return "WithdrawalPoint{" +
-                "capacity=" + capacity +
-                "} " + super.toString();
+        return "WithdrawalPoint{ " +
+                super.toString() +
+                ", capacity=" + capacity +
+                "}";
     }
 
 }

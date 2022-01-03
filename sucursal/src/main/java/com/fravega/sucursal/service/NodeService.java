@@ -13,5 +13,6 @@ public interface NodeService {
     Optional<Node> getNodeById(int id);
     Node saveNode(Node node);
     void deleteNodeById(int id);
+    Node getClosestNode(double latitude, double longitude);
 
 }

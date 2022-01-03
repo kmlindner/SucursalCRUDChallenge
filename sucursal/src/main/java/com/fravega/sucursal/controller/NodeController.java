@@ -42,6 +42,16 @@ public class NodeController {
         }
     }
 
+    @GetMapping("/nodes/closest")
+    public ResponseEntity<Node> getClosestNode(@RequestParam (value="latitude") double latitude, @RequestParam (value="longitude") double longitude) {
+        try {
+            Node node = nodeService.getClosestNode(latitude, longitude);
+            return new ResponseEntity<>(node, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     @PostMapping("/nodes/branch-office")
     public ResponseEntity<Node> createBranchOffice(@RequestBody BranchOffice branchOffice) {
         try {
