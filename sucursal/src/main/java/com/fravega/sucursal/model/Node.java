@@ -47,11 +47,9 @@ public abstract class Node {
 
     @Override
     public String toString() {
-        return "Node{" +
-                "id=" + id +
-                ", latitude=" + latitude +
-                ", longitude=" + longitude +
-                '}';
+        return  "id = " + id +
+                ", latitude = " + latitude +
+                ", longitude = " + longitude;
     }
 
 }

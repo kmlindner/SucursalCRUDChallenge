@@ -37,10 +37,11 @@ public class BranchOffice extends Node {
 
     @Override
     public String toString() {
-        return "BranchOffice{" +
-                "address='" + address + '\'' +
+        return "BranchOffice{ " +
+                super.toString() +
+                ", address='" + address + '\'' +
                 ", businessHours='" + businessHours + '\'' +
-                "} " + super.toString();
+                "}";
     }
 
 }
