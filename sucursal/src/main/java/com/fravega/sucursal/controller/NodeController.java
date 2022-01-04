@@ -11,6 +11,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,6 +30,8 @@ public class NodeController {
     @Autowired
     private NodeService nodeService;
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(NodeController.class);
+
     @Operation(summary = "Get all nodes", description = "Includes both node types, branch offices and withdrawal points", tags = "Node Controller")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Found all nodes successfully", content = {
@@ -44,6 +48,7 @@ public class NodeController {
             }
             return new ResponseEntity<>(nodes, HttpStatus.OK);
         } catch (Exception e) {
+            LOGGER.error("Error on getAllNodes method: {}", e.getMessage());
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -58,11 +63,16 @@ public class NodeController {
     public ResponseEntity<Node> getNodeById(
             @Parameter(description="Id of the node to be obtained. Cannot be empty.", required=true)
             @PathVariable("id") int id) {
-        Optional<Node> nodeData = nodeService.getNodeById(id);
-        if (nodeData.isPresent()) {
-            return new ResponseEntity<>(nodeData.get(), HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        try {
+            Optional<Node> nodeData = nodeService.getNodeById(id);
+            if (nodeData.isPresent()) {
+                return new ResponseEntity<>(nodeData.get(), HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+        } catch (Exception e) {
+            LOGGER.error("Error on getNodeById method: {}", e.getMessage());
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -82,6 +92,7 @@ public class NodeController {
             Node node = nodeService.getClosestNode(latitude, longitude);
             return new ResponseEntity<>(node, HttpStatus.OK);
         } catch (Exception e) {
+            LOGGER.error("Error on getClosestNode method: {}", e.getMessage());
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -102,6 +113,7 @@ public class NodeController {
             Node branchOfficeNode = nodeService.saveNode(new BranchOffice(branchOffice.getLatitude(), branchOffice.getLongitude(), branchOffice.getAddress(), branchOffice.getBusinessHours()));
             return new ResponseEntity<>(branchOfficeNode, HttpStatus.CREATED);
         } catch (Exception e) {
+            LOGGER.error("Error on createbranchOffice method: {}", e.getMessage());
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -122,6 +134,7 @@ public class NodeController {
             Node withdrawalPointNode = nodeService.saveNode(new WithdrawalPoint(withdrawalPoint.getLatitude(), withdrawalPoint.getLongitude(), withdrawalPoint.getCapacity()));
             return new ResponseEntity<>(withdrawalPointNode, HttpStatus.CREATED);
         } catch (Exception e) {
+            LOGGER.error("Error on createWithdrawalPoint method: {}", e.getMessage());
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -192,6 +205,7 @@ public class NodeController {
             nodeService.deleteNodeById(id);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e) {
+            LOGGER.error("Error on deleteNode method: {}", e.getMessage());
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
