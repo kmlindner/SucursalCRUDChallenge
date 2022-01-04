@@ -1,5 +1,7 @@
 package com.fravega.sucursal.model;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 import javax.persistence.*;
 
 @Entity(name = "Node")
@@ -7,10 +9,13 @@ import javax.persistence.*;
 @DiscriminatorColumn(name = "NODE_TYPE", discriminatorType = DiscriminatorType.STRING)
 public abstract class Node {
 
+    @Schema(description = "Unique identifier of the node.", example = "1")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @Schema(description = "Latitude coordinate of the node (Range: -90.00 .. 90.00)", example = "45.567", required = true)
     private double latitude;
+    @Schema(description = "Longitude coordinate of the node (Range: -180.00 .. 180.00)", example = "120.567", required = true)
     private double longitude;
 
     public Node() {

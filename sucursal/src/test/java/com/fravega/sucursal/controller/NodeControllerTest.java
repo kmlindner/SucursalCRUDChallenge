@@ -100,7 +100,7 @@ public class NodeControllerTest {
 
     @Test
     public void shouldDeleteNodeById() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.delete("/api/nodes/{id}", "1")).andExpect(status().isNoContent());
+        mockMvc.perform(MockMvcRequestBuilders.delete("/api/nodes/{id}", "1")).andExpect(status().isOk());
     }
 
 }
