@@ -1,5 +1,7 @@
 package com.fravega.sucursal.model;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
@@ -7,6 +9,7 @@ import javax.persistence.Entity;
 @DiscriminatorValue(value = "WITHDRAWAL_POINT")
 public class WithdrawalPoint extends Node {
 
+    @Schema(description = "Withdrawal point capacity", example = "150000")
     private long capacity;
 
     public WithdrawalPoint() {

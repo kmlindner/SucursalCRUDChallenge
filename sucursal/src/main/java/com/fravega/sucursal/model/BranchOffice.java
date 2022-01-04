@@ -1,5 +1,7 @@
 package com.fravega.sucursal.model;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
@@ -7,7 +9,9 @@ import javax.persistence.Entity;
 @DiscriminatorValue(value = "BRANCH_OFFICE")
 public class BranchOffice extends Node {
 
+    @Schema(description = "Branch office address", example = "Av. Monroe 2465")
     private String address;
+    @Schema(description = "Branch office business hours", example = "8:00 - 18:00")
     private String businessHours;
 
     public BranchOffice() {
